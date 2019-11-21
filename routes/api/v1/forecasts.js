@@ -39,7 +39,7 @@ router.get('/', (request, response) => {
                     .catch((error) => {
                         response.status(500).json({error});
                     }); } else {
-                response.status(404).send({error: 'Unauthorized'})
+                response.status(401).send({error: 'Unauthorized'})
             };
         })
 });
