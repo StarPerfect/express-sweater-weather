@@ -23,25 +23,6 @@ const create = (request, response) => {
         })
 };
 
-const show = (request, response) => {
-    database('users').where('apiKey', request.body.api_key)
-        .then((user) => {
-           if(user) {
-               database('favorites').where('userId', user[0].id)
-                   .then((favArray) => {
-                       favArray.forEach()
-                       // need to create the forecast object for each location in the favs array and then return that LOOK UP ASYNC INSIDE FOREACH
-                       // response.status(200).send(JSON.stringify(new forecastCurrently(location, results)))
-                   })
-                   .catch((error) => {
-                       response.status(500).json({error})
-                   })
-           } else {
-               response.status(401).send({error: 'Unauthorized'})
-           };
-        });
-};
-
 const remove = (request, response) => {
     database('users').where('apiKey', request.body.api_key)
         .then((user) => {
@@ -62,6 +43,5 @@ const remove = (request, response) => {
 
 module.exports = {
     create,
-    show,
     remove
 };
