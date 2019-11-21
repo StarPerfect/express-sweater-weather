@@ -3,7 +3,7 @@ var router = express.Router();
 var dotenv = require('dotenv').config();
 var fetch = require('node-fetch');
 var user = require('../../../models/user');
-var forecastPojo = require('../../../models/forecast');
+var forecastPojo = require('../../../models/forecast.js');
 
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../../../knexfile')[environment];
