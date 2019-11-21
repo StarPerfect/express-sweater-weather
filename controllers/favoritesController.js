@@ -4,6 +4,7 @@ const database = require('knex')(configuration);
 
 var user = require('../models/user');
 var fetch = require('node-fetch');
+const forecastCurrently = require('../models/currentForecast.js');
 
 const create = (request, response) => {
     database('users').where('apiKey', request.body.api_key)
@@ -14,7 +15,7 @@ const create = (request, response) => {
                          response.status(200).send({message: `${request.body.location} has been added to your favorites`});
                      })
                      .catch((error) => {
-                         response.status(500).json({error});
+                         response.status(500).json({error})
                      })
             } else {
                 response.status(401).send({error: 'Unauthorized'})
@@ -24,17 +25,43 @@ const create = (request, response) => {
 
 const show = (request, response) => {
     database('users').where('apiKey', request.body.api_key)
-    then((user) => {
-       if(user) {
-           console.log(database('favorites').where('userId', user.id))
-       } else {
-           response.status(401).send({error: 'Unauthorized'})
-       };
-    });
+        .then((user) => {
+           if(user) {
+               database('favorites').where('userId', user[0].id)
+                   .then((favArray) => {
+                       favArray.forEach()
+                       // need to create the forecast object for each location in the favs array and then return that LOOK UP ASYNC INSIDE FOREACH
+                       // response.status(200).send(JSON.stringify(new forecastCurrently(location, results)))
+                   })
+                   .catch((error) => {
+                       response.status(500).json({error})
+                   })
+           } else {
+               response.status(401).send({error: 'Unauthorized'})
+           };
+        });
+};
+
+const remove = (request, response) => {
+    database('users').where('apiKey', request.body.api_key)
+        .then((user) => {
+            if(user) {
+                database('favorites').where('userId', user[0].id).where('location', request.body.location).del()
+                    .then(() => {
+                        response.status(204).send({message: `${request.query.location} has been deleted`})
+                    })
+                    .catch((error) => {
+                        response.status(500).json({error})
+                    })
+            } else {
+                response.status(401).send({error: 'Unauthorized'})
+            };
+        })
 };
 
 
 module.exports = {
     create,
-    show
+    show,
+    remove
 };
