@@ -22,6 +22,19 @@ const create = (request, response) => {
         })
 };
 
+const show = (request, response) => {
+    database('users').where('apiKey', request.body.api_key)
+    then((user) => {
+       if(user) {
+           console.log(database('favorites').where('userId', user.id))
+       } else {
+           response.status(401).send({error: 'Unauthorized'})
+       };
+    });
+};
+
+
 module.exports = {
-    create
+    create,
+    show
 };
