@@ -2,7 +2,7 @@ class Forecast {
     constructor(location, details) {
         this.location = location;
         this.currently = {
-            summary: details.currently.summary,
+            summary: details['currently']['summary'],
             icon: details.currently.icon,
             precipIntensity: details.currently.precipIntensity,
             precipProbability: details.currently.precipProbability,
@@ -14,12 +14,12 @@ class Forecast {
             windBearing: details.currently.windBearing,
             cloudCover: details.currently.cloudCover,
             visibility: details.currently.visibility
-        }
+        };
         this.hourly = {
-            summary: details.hourly.summary,
+            'summary': details.hourly.summary,
             icon: details.hourly.icon,
             data: [
-              {   time = details.hourly.data[0].time
+              {   time: details.hourly.data[0].time,
                   summary: details.hourly.data[0].summary,
                       icon: details.hourly.data[0].icon,
                   precipIntensity: details.hourly.data[0].precipIntensity,
@@ -32,8 +32,8 @@ class Forecast {
                   windBearing: details.hourly.data[0].windBearing,
                   cloudCover: details.hourly.data[0].cloudCover,
                   visibility: details.hourly.data[0].visibility
-              }, {   time = details.hourly.data[1].time
-                  summary: details.hourly.data[1].summary,
+              }, {   time: details.hourly.data[1].time,
+                  'summary': details.hourly.data[1].summary,
                       icon: details.hourly.data[1].icon,
                       precipIntensity: details.hourly.data[1].precipIntensity,
                       precipProbability: details.hourly.data[1].precipProbability,
@@ -45,7 +45,7 @@ class Forecast {
                       windBearing: details.hourly.data[1].windBearing,
                       cloudCover: details.hourly.data[1].cloudCover,
                       visibility: details.hourly.data[1].visibility
-              }, {   time = details.hourly.data[2].time
+              }, {   time: details.hourly.data[2].time,
                   summary: details.hourly.data[2].summary,
                       icon: details.hourly.data[2].icon,
                       precipIntensity: details.hourly.data[2].precipIntensity,
@@ -58,7 +58,7 @@ class Forecast {
                       windBearing: details.hourly.data[2].windBearing,
                       cloudCover: details.hourly.data[2].cloudCover,
                       visibility: details.hourly.data[2].visibility
-              }, {   time = details.hourly.data[3].time
+              }, {   time: details.hourly.data[3].time,
                   summary: details.hourly.data[3].summary,
                       icon: details.hourly.data[3].icon,
                       precipIntensity: details.hourly.data[3].precipIntensity,
@@ -71,7 +71,7 @@ class Forecast {
                       windBearing: details.hourly.data[3].windBearing,
                       cloudCover: details.hourly.data[3].cloudCover,
                       visibility: details.hourly.data[3].visibility
-              }, {   time = details.hourly.data[4].time
+              }, {   time: details.hourly.data[4].time,
                   summary: details.hourly.data[4].summary,
                       icon: details.hourly.data[4].icon,
                       precipIntensity: details.hourly.data[4].precipIntensity,
@@ -84,7 +84,7 @@ class Forecast {
                       windBearing: details.hourly.data[4].windBearing,
                       cloudCover: details.hourly.data[4].cloudCover,
                       visibility: details.hourly.data[4].visibility
-              }, {   time = details.hourly.data[5].time
+              }, {   time: details.hourly.data[5].time,
                   summary: details.hourly.data[5].summary,
                       icon: details.hourly.data[5].icon,
                       precipIntensity: details.hourly.data[5].precipIntensity,
@@ -97,7 +97,7 @@ class Forecast {
                       windBearing: details.hourly.data[5].windBearing,
                       cloudCover: details.hourly.data[5].cloudCover,
                       visibility: details.hourly.data[5].visibility
-              }, {   time = details.hourly.data[6].time
+              }, {   time: details.hourly.data[6].time,
                   summary: details.hourly.data[6].summary,
                       icon: details.hourly.data[6].icon,
                       precipIntensity: details.hourly.data[6].precipIntensity,
@@ -110,7 +110,7 @@ class Forecast {
                       windBearing: details.hourly.data[6].windBearing,
                       cloudCover: details.hourly.data[6].cloudCover,
                       visibility: details.hourly.data[6].visibility
-              }, {   time = details.hourly.data[7].time
+              }, {   time: details.hourly.data[7].time,
                   summary: details.hourly.data[7].summary,
                       icon: details.hourly.data[7].icon,
                       precipIntensity: details.hourly.data[7].precipIntensity,
@@ -125,18 +125,18 @@ class Forecast {
                       visibility: details.hourly.data[7].visibility
               }
             ]
-        },
+        };
         this.daily = {
-          summary = details.daily.summary,
-          icon = details.daily.icon,
-          data = [{
+          'summary': details.daily.summary,
+          icon: details.daily.icon,
+          data: [{
             time: details.daily.data[0].time,
             summary: details.daily.data[0].summary,
             icon: details.daily.data[0].icon,
             sunriseTime: details.daily.data[0].sunriseTime,
             sunsetTime: details.daily.data[0].sunsetTime,
             precipIntensity: details.daily.data[0].precipIntensity,
-            precipIntensityMax:precipIntensityMax,
+            precipIntensityMax: details.daily.data[0].precipIntensityMax,
             precipIntensityMaxTime: details.daily.data[0].precipIntensityMaxTime,
             precipProbability: details.daily.data[0].precipProbability,
             precipType: details.daily.data[0].precipType,
@@ -157,7 +157,7 @@ class Forecast {
             sunriseTime: details.daily.data[1].sunriseTime,
             sunsetTime: details.daily.data[1].sunsetTime,
             precipIntensity: details.daily.data[1].precipIntensity,
-            precipIntensityMax:precipIntensityMax,
+              precipIntensityMax: details.daily.data[1].precipIntensityMax,
             precipIntensityMaxTime: details.daily.data[1].precipIntensityMaxTime,
             precipProbability: details.daily.data[1].precipProbability,
             precipType: details.daily.data[1].precipType,
@@ -178,7 +178,7 @@ class Forecast {
             sunriseTime: details.daily.data[2].sunriseTime,
             sunsetTime: details.daily.data[2].sunsetTime,
             precipIntensity: details.daily.data[2].precipIntensity,
-            precipIntensityMax:precipIntensityMax,
+              precipIntensityMax: details.daily.data[2].precipIntensityMax,
             precipIntensityMaxTime: details.daily.data[2].precipIntensityMaxTime,
             precipProbability: details.daily.data[2].precipProbability,
             precipType: details.daily.data[2].precipType,
@@ -199,7 +199,7 @@ class Forecast {
             sunriseTime: details.daily.data[3].sunriseTime,
             sunsetTime: details.daily.data[3].sunsetTime,
             precipIntensity: details.daily.data[3].precipIntensity,
-            precipIntensityMax:precipIntensityMax,
+            precipIntensityMax: details.daily.data[3].precipIntensityMax,
             precipIntensityMaxTime: details.daily.data[3].precipIntensityMaxTime,
             precipProbability: details.daily.data[3].precipProbability,
             precipType: details.daily.data[3].precipType,
@@ -220,7 +220,7 @@ class Forecast {
             sunriseTime: details.daily.data[4].sunriseTime,
             sunsetTime: details.daily.data[4].sunsetTime,
             precipIntensity: details.daily.data[4].precipIntensity,
-            precipIntensityMax:precipIntensityMax,
+            precipIntensityMax: details.daily.data[4].precipIntensityMax,
             precipIntensityMaxTime: details.daily.data[4].precipIntensityMaxTime,
             precipProbability: details.daily.data[4].precipProbability,
             precipType: details.daily.data[4].precipType,
@@ -241,7 +241,7 @@ class Forecast {
             sunriseTime: details.daily.data[5].sunriseTime,
             sunsetTime: details.daily.data[5].sunsetTime,
             precipIntensity: details.daily.data[5].precipIntensity,
-            precipIntensityMax:precipIntensityMax,
+            precipIntensityMax: details.daily.data[5].precipIntensityMax,
             precipIntensityMaxTime: details.daily.data[5].precipIntensityMaxTime,
             precipProbability: details.daily.data[5].precipProbability,
             precipType: details.daily.data[5].precipType,
@@ -262,7 +262,7 @@ class Forecast {
             sunriseTime: details.daily.data[6].sunriseTime,
             sunsetTime: details.daily.data[6].sunsetTime,
             precipIntensity: details.daily.data[6].precipIntensity,
-            precipIntensityMax:precipIntensityMax,
+            precipIntensityMax: details.daily.data[6].precipIntensityMax,
             precipIntensityMaxTime: details.daily.data[6].precipIntensityMaxTime,
             precipProbability: details.daily.data[6].precipProbability,
             precipType: details.daily.data[6].precipType,
@@ -278,9 +278,8 @@ class Forecast {
             temperatureMax: details.daily.data[6].temperatureMax
           }
         ]
-      }
+      };
         }
     }
-}
 
 module.exports = Forecast;
