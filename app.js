@@ -11,7 +11,7 @@ const database = require('knex')(configuration);
 
 var indexRouter = require('./routes/index');
 var forecastsRouter = require('./routes/api/v1/forecasts');
-var favoritesRouter = require('./routes/api/v1/favorites');
+var favoritesController = require('./controllers/favoritesController');
 
 var app = express();
 
@@ -24,6 +24,7 @@ app.locals.title = 'Express Sweater Weather';
 
 app.use('/', indexRouter);
 app.use('/api/v1/forecasts', forecastsRouter);
-app.use('/api/v1/favorites', favoritesRouter);
+app.post('/api/v1/favorites', favoritesController.create);
+
 
 module.exports = app;

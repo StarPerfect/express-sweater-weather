@@ -8,6 +8,7 @@ var forecastPojo = require('../../../models/forecast.js');
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('../../../knexfile')[environment];
 const database = require('knex')(configuration);
+
 var latitude;
 var longitude;
 var location;
@@ -38,7 +39,8 @@ router.get('/', (request, response) => {
                     })
                     .catch((error) => {
                         response.status(500).json({error});
-                    }); } else {
+                    });
+            } else {
                 response.status(401).send({error: 'Unauthorized'})
             };
         })
