@@ -10,9 +10,11 @@ const configuration = require('../../../knexfile')[environment];
 const database = require('knex')(configuration);
 var latitude;
 var longitude;
+var location;
 
 
 router.get('/', (request, response) => {
+    location = request.query.location
     database('users').where('apiKey', request.body.api_key)
         .then((user) => {
             if (user) {
@@ -31,7 +33,7 @@ router.get('/', (request, response) => {
                         fetch(fullDarkskyUrl)
                             .then(res => res.json())
                             .then((results) => {
-                                response.status(200).send(JSON.stringify(new forecastPojo(results)))
+                                response.status(200).send(JSON.stringify(new forecastPojo(location, results)))
                             })
                     })
                     .catch((error) => {
