@@ -6,8 +6,6 @@ var fetch = require('node-fetch');
 var user = require('../models/user');
 var fetch = require('node-fetch');
 let forecastCurrently = require('../models/currentForecast.js');
-var latitude;
-var longitude;
 
 const create = (request, response) => {
     database('users').where('apiKey', request.body.api_key)
@@ -50,66 +48,36 @@ async function darkskyApi(latitude, longitude) {
 }
 
 async function createFavForecast(location, forecast) {
-    let forecastedFavs = [];
-    let favForecast = new forecastCurrently(location, forecast)
-    let addedFav = forecastedFavs.push(favForecast);
+    let addedFav = new forecastCurrently(location, forecast)
     return addedFav;
 }
 
-const show = (request, response) => {
-    let forecastedFavs = [];
-    database('users').where('apiKey', request.body.api_key)
-        .then((user) => {
-           if(user) {
-               database('favorites').where('userId', user[0].id)
-                   .then((favArray) => {
-                       asyncForEach(favArray, async(fav) => {
-                           googleGeocode(fav.location)
-                           .then((coords) => {
-                                latitude = coords.lat;
-                                longitude = coords.lng;
-                           })
-                            // let geocodeStart = 'https://maps.googleapis.com/maps/api/geocode/json'
-                            // let fullGoogleUrl = geocodeStart + '?key=' + process.env.GOOGLE_KEY + '&address=' + fav.location
-                            // fetch(fullGoogleUrl)
-                            //     .then(res => res.json())
-                            //     .then((results) => {
-                            //         let coords = results.results[0].geometry.location
-                                    // latitude = coords.lat;
-                                    // longitude = coords.lng;
-                            //     })
-                            .then(() => {
-                                darkskyApi(latitude, longitude)
-                                .then((data) => { 
-                                    console.log(data)
-                                    // response.status(200).send(JSON.stringify(createFavForecast(fav.location, data)));
-                                })
-                                    // var darkskyStart = 'https://api.darksky.net/'
-                                    // var fullDarkskyUrl = darkskyStart + `forecast/${process.env.DARKSKY_KEY}/${latitude},${longitude}`
-                                    // fetch(fullDarkskyUrl)
-                                    //     .then(res => res.json())
-                                    //     .then((results) => {
-                                    //         let locationForecast = new forecastCurrently(fav.location, results)
-                                    //         forecastedFavs.push(locationForecast)
-                                    //     //    forecastedFavs.push(new forecastCurrently(fav.location, results))
-                                    //        // FIGURE OUT HOW TO PULL OUT THIS FORECASTEDFAVS AND DISPLAY IT
-                                    //     })
-                                })
-                                .catch((error) => {
-                                    response.status(500).json({error});
-                                });
-                       })
-                       .then(() => {
-                        response.status(200).send(JSON.stringify(forecastedFavs));
-                        })
-                   })
-                   .catch((error) => {
-                       response.status(500).json({error})
-                   })
+async function forecastFavs(favArray) {
+    const forecastedFavs = []
+    await asyncForEach(favArray, async (fav) => {
+        let coords  = await googleGeocode(fav.location).then(response => response)
+        let darksky = await darkskyApi(coords.lat, coords.lng).then(response => response)
+        let finalObject = await createFavForecast(fav.location, darksky)
+        forecastedFavs.push(finalObject)
+    })
+    return forecastedFavs
+}
+
+async function dbCall(user) {
+    let favArray = await database('favorites').where('userId', user[0].id)
+    let final = await forecastFavs(favArray)
+    return final;
+}
+
+const show = async (request, response) => {
+    let user = await database('users').where('apiKey', request.body.api_key)
+        if(user) {
+            console.log(user)
+            let work = await dbCall(user)
+            response.status(200).json(work)
            } else {
                response.status(401).send({error: 'Unauthorized'})
            };
-        });
 };
 
 
