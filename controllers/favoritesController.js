@@ -5,7 +5,7 @@ var dotenv = require('dotenv').config();
 var fetch = require('node-fetch');
 var user = require('../models/user');
 var fetch = require('node-fetch');
-let forecastCurrently = require('../models/currentForecast.js');
+let forecastPojo = require('../models/currentForecast.js');
 
 const create = (request, response) => {
     database('users').where('apiKey', request.body.api_key)
@@ -48,7 +48,7 @@ async function darkskyApi(latitude, longitude) {
 }
 
 async function createFavForecast(location, forecast) {
-    let addedFav = new forecastCurrently(location, forecast)
+    let addedFav = new forecastPojo(location, forecast)
     return addedFav;
 }
 
@@ -72,7 +72,6 @@ async function dbCall(user) {
 const show = async (request, response) => {
     let user = await database('users').where('apiKey', request.body.api_key)
         if(user) {
-            console.log(user)
             let work = await dbCall(user)
             response.status(200).json(work)
            } else {
