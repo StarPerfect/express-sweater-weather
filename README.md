@@ -100,7 +100,7 @@ Finally, you can delete any location off your favorites list. Like always, we ne
 Send this as a DELETE request in Postman to `https:localhost/api/v1/favorites`.
 
 ### Schema Design <a name="schema"></a>
-![Schema Diagram](https://dbdiagram.io/d/5dd7e54cedf08a25543e3f25)
+![Express Sweater Weather](https://user-images.githubusercontent.com/47605558/69431773-a13ef500-0cf5-11ea-8438-eb156fe6fa6a.png)
 
 ### Tech Stack <a name="stack"></a>
 - [Node.js](https://nodejs.org/en/)
