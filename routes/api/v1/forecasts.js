@@ -20,9 +20,9 @@ router.get('/', (request, response) => {
         .then((user) => {
             if (user) {
                 let geocodeStart = 'https://maps.googleapis.com/maps/api/geocode/json'
-                let fullGoogleUrl = geocodeStart + '?key=' + process.env.GOOGLE_KEY + '&address=denver,co'
+                let fullGoogleUrl = geocodeStart + '?key=' + process.env.GOOGLE_KEY + '&address=' + location
                 fetch(fullGoogleUrl)
-                    .then(res => res.json()) // do response.status(#).send()
+                    .then(res => res.json())
                     .then((results) => {
                         let coords = results.results[0].geometry.location
                         latitude = coords.lat;
