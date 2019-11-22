@@ -26,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/api/v1/forecasts', forecastsRouter);
 app.post('/api/v1/favorites', favoritesController.create);
 app.get('/api/v1/favorites', favoritesController.show);
+app.delete('/api/v1/favorites', favoritesController.remove);
 
 
 module.exports = app;
